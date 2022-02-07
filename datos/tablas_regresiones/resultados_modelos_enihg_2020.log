@@ -3,7 +3,7 @@
        log:  C:\Users\jjsan\OneDrive\dataton_datamexico_financiero\datos\tablas_
 > regresiones\resultados_modelos_enihg_2020.log
   log type:  text
- opened on:   6 Feb 2022, 17:36:58
+ opened on:   6 Feb 2022, 23:59:14
 
 . use "${dir_data}/datos_modelo.dta", clear
 
@@ -16,14 +16,17 @@ Sampling weights: factor
  Sampling unit 1: upm
            FPC 1: <zero>
 
-. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+. . `a8b67ab6636863d3abff28d63e664829'
+. include "C:/Users/jjsan/.stata_kernel_cache/include.do"
 
 . tempname __user_rc
 
 . local `__user_rc' = _rc
 
-. 
-.  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+. . `cc64df03024327541235dabb93f09e00'
+. _StataKernelLog off
+
+. include "C:/Users/jjsan/.stata_kernel_cache/include.do"
 
 . _StataKernelResetRC, num(``__user_rc'')
 
@@ -31,7 +34,7 @@ Sampling weights: factor
 
 . macro drop ___user_rc
 
-. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+. . include "C:/Users/jjsan/.stata_kernel_cache/include.do"
 
 . global INDEP mujer edad tiene_internet tiene_celular tiene_contabilidad ib2.ni
 > velaprob ib1.est_socio ib3.tam_loc i.tipoact tiene_empleados i.ingreso_mensual
@@ -150,14 +153,14 @@ Note: dy/dx for factor levels is the discrete change from the base level.
 
 . estimates store margins_1
 
-. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+. . include "C:/Users/jjsan/.stata_kernel_cache/include.do"
 
 . tempname __user_rc
 
 . local `__user_rc' = _rc
 
 . 
-.  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+. include "C:/Users/jjsan/.stata_kernel_cache/include.do"
 
 . _StataKernelResetRC, num(``__user_rc'')
 
@@ -165,7 +168,7 @@ Note: dy/dx for factor levels is the discrete change from the base level.
 
 . macro drop ___user_rc
 
-. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+. . include "C:/Users/jjsan/.stata_kernel_cache/include.do"
 
 . global order_coefs
 
@@ -173,9 +176,6 @@ Note: dy/dx for factor levels is the discrete change from the base level.
 > (fmt(4) star) se(fmt(4)) t(fmt(4)) p(fmt(4)) ci(fmt(4))) starlevels(* 0.1 ** 0
 > .05 *** 0.01) lines label  mlabels("modelo_1")  order(${order_coefs}) nobasele
 > vels replace html
-(file
-    C:\Users\jjsan\OneDrive\dataton_datamexico_financiero\datos\tablas_regresi
-    > ones\efectos_marginales_enigh_2020.html not found)
 (output written to C:\Users\jjsan\OneDrive\dataton_datamexico_financiero\datos\t
 > ablas_regresiones\efectos_marginales_enigh_2020.html)
 
