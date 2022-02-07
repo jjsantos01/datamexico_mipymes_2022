@@ -1,0 +1,182 @@
+--------------------------------------------------------------------------------
+      name:  <unnamed>
+       log:  C:\Users\jjsan\OneDrive\dataton_datamexico_financiero\datos\tablas_
+> regresiones\resultados_modelos_enihg_2020.log
+  log type:  text
+ opened on:   6 Feb 2022, 17:36:58
+
+. use "${dir_data}/datos_modelo.dta", clear
+
+. svyset upm [pweight = factor], strata(est_dis) singleunit(centered)
+
+Sampling weights: factor
+             VCE: linearized
+     Single unit: centered
+        Strata 1: est_dis
+ Sampling unit 1: upm
+           FPC 1: <zero>
+
+. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+.  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+
+. global INDEP mujer edad tiene_internet tiene_celular tiene_contabilidad ib2.ni
+> velaprob ib1.est_socio ib3.tam_loc i.tipoact tiene_empleados i.ingreso_mensual
+> _rango
+
+. svy: logit fpago_alt ${INDEP}
+(running logit on estimation sample)
+
+Survey: Logistic regression
+
+Number of strata =   552                          Number of obs   =     24,666
+Number of PSUs   = 7,364                          Population size = 10,088,738
+                                                  Design df       =      6,812
+                                                  F(22, 6791)     =      52.10
+                                                  Prob > F        =     0.0000
+
+-------------------------------------------------------------------------------
+              |             Linearized
+    fpago_alt | Coefficient  std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+        mujer |  -.3681662   .0741373    -4.97   0.000    -.5134986   -.2228339
+         edad |  -.0273932   .0030037    -9.12   0.000    -.0332813   -.0215051
+tiene_inter~t |   .6270699   .0851062     7.37   0.000     .4602353    .7939046
+tiene_celular |    .428678   .2479616     1.73   0.084    -.0574042    .9147602
+tiene_conta~d |   .9669003   .0812026    11.91   0.000     .8077178    1.126083
+              |
+   nivelaprob |
+Maestría o..  |   2.564309   .2467225    10.39   0.000     2.080656    3.047962
+Normal o t..  |   1.257287   .1835745     6.85   0.000     .8974241    1.617151
+ Profesional  |    1.78056    .147548    12.07   0.000      1.49132      2.0698
+Secundaria..  |    .755863   .1329474     5.69   0.000     .4952446    1.016481
+              |
+    est_socio |
+        Alto  |   .9520259   .2025186     4.70   0.000     .5550262    1.349026
+  Medio alto  |   .5453767   .1777888     3.07   0.002     .1968551    .8938983
+  Medio bajo  |   .1499128   .1487644     1.01   0.314    -.1417119    .4415375
+              |
+      tam_loc |
+100,000 y ..  |   .3052227   .1370036     2.23   0.026     .0366529    .5737924
+15,000 a 9..  |   .1195115   .1428043     0.84   0.403    -.1604296    .3994526
+2,500 a 14..  |   -.050063   .1445466    -0.35   0.729    -.3334196    .2332935
+              |
+      tipoact |
+  Industrial  |   .2122912   .1088513     1.95   0.051    -.0010914    .4256737
+   Servicios  |   .1918326   .0818467     2.34   0.019     .0313874    .3522777
+              |
+tiene_emple~s |  -.0948097   .0810772    -1.17   0.242    -.2537463    .0641269
+              |
+ingreso_men~o |
+   2001-4000  |   .0324491   .1005115     0.32   0.747    -.1645848    .2294831
+   4001-6000  |   .2685454   .1116199     2.41   0.016     .0497355    .4873553
+   6001-8000  |   .4671581   .1421691     3.29   0.001     .1884624    .7458539
+  8000 o más  |   .7301999   .1104546     6.61   0.000     .5136744    .9467253
+              |
+        _cons |  -3.742193   .3267401   -11.45   0.000    -4.382706    -3.10168
+-------------------------------------------------------------------------------
+Note: Strata with single sampling unit centered at overall mean.
+
+. estimates store modelo_1
+
+. margins, dydx(${INDEP}) vce(unconditional) post
+
+Average marginal effects
+
+Number of strata =   552                          Number of obs   =     24,666
+Number of PSUs   = 7,364                          Population size = 10,088,738
+                                                  Design df       =      6,812
+
+Expression: Pr(fpago_alt), predict()
+dy/dx wrt:  mujer edad tiene_internet tiene_celular tiene_contabilidad
+            0.nivelaprob 1.nivelaprob 3.nivelaprob 4.nivelaprob 0.est_socio
+            2.est_socio 3.est_socio 0.tam_loc 1.tam_loc 2.tam_loc 1.tipoact
+            2.tipoact tiene_empleados 1.ingreso_mensual_rango
+            2.ingreso_mensual_rango 3.ingreso_mensual_rango
+            4.ingreso_mensual_rango
+
+-------------------------------------------------------------------------------
+              |             Linearized
+              |      dy/dx   std. err.      t    P>|t|     [95% conf. interval]
+--------------+----------------------------------------------------------------
+        mujer |  -.0263151   .0052698    -4.99   0.000    -.0366456   -.0159846
+         edad |   -.001958   .0002174    -9.01   0.000     -.002384   -.0015319
+tiene_inter~t |   .0448205   .0061218     7.32   0.000     .0328199    .0568212
+tiene_celular |   .0306402   .0177425     1.73   0.084    -.0041406     .065421
+tiene_conta~d |   .0691103   .0058636    11.79   0.000     .0576159    .0806047
+              |
+   nivelaprob |
+Maestría o..  |   .2505496   .0372199     6.73   0.000      .177587    .3235121
+Normal o t..  |   .0776857   .0135052     5.75   0.000     .0512113    .1041601
+ Profesional  |   .1341685   .0103306    12.99   0.000     .1139173    .1544197
+Secundaria..  |     .03817   .0056155     6.80   0.000     .0271619    .0491781
+              |
+    est_socio |
+        Alto  |   .0768248   .0166605     4.61   0.000     .0441651    .1094845
+  Medio alto  |    .038814   .0119379     3.25   0.001     .0154119    .0622161
+  Medio bajo  |   .0093893    .008978     1.05   0.296    -.0082105     .026989
+              |
+      tam_loc |
+100,000 y ..  |   .0216075   .0093889     2.30   0.021     .0032022    .0400127
+15,000 a 9..  |   .0080004   .0095117     0.84   0.400    -.0106456    .0266464
+2,500 a 14..  |  -.0031824    .009183    -0.35   0.729    -.0211838    .0148191
+              |
+      tipoact |
+  Industrial  |   .0149826   .0077843     1.92   0.054    -.0002771    .0302423
+   Servicios  |   .0134582    .005678     2.37   0.018     .0023275    .0245888
+              |
+tiene_emple~s |  -.0067766   .0057937    -1.17   0.242     -.018134    .0045808
+              |
+ingreso_men~o |
+   2001-4000  |   .0021182   .0065891     0.32   0.748    -.0107985    .0150349
+   4001-6000  |   .0188344   .0081786     2.30   0.021     .0028018    .0348669
+   6001-8000  |   .0347614   .0116141     2.99   0.003     .0119942    .0575285
+  8000 o más  |   .0586414   .0099208     5.91   0.000     .0391935    .0780892
+-------------------------------------------------------------------------------
+Note: dy/dx for factor levels is the discrete change from the base level.
+
+. estimates store margins_1
+
+. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+
+. tempname __user_rc
+
+. local `__user_rc' = _rc
+
+. 
+.  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+
+. _StataKernelResetRC, num(``__user_rc'')
+
+. macro drop _`__user_rc'
+
+. macro drop ___user_rc
+
+. .  include "C:/Users/jjsan/.stata_kernel_cache/include.do"
+
+. global order_coefs
+
+. esttab margins_1 using "${dir_tablas}\efectos_marginales_enigh_2020",  cells(b
+> (fmt(4) star) se(fmt(4)) t(fmt(4)) p(fmt(4)) ci(fmt(4))) starlevels(* 0.1 ** 0
+> .05 *** 0.01) lines label  mlabels("modelo_1")  order(${order_coefs}) nobasele
+> vels replace html
+(file
+    C:\Users\jjsan\OneDrive\dataton_datamexico_financiero\datos\tablas_regresi
+    > ones\efectos_marginales_enigh_2020.html not found)
+(output written to C:\Users\jjsan\OneDrive\dataton_datamexico_financiero\datos\t
+> ablas_regresiones\efectos_marginales_enigh_2020.html)
+
+. capture log close

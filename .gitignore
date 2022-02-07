@@ -1,0 +1,6 @@
+/.ipynb_checkpoints
+/.virtual_documents
+/docs
+*.dta
+*.csv
+*.bak
